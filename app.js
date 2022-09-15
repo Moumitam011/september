@@ -3,7 +3,7 @@ const server = express();
 const port = 4000;
 const bodyparser=require ('body-parser')
 server.use(bodyparser.json()); 
-const students = [
+const users = [
     {
         email:'moumitam038@gmail.com',
         password:'1234567',
@@ -72,40 +72,40 @@ const students = [
         email:'souravjha@gmail.com',
         password:'888888',
         name:'Sourav Jha',
-        phone:'8967452390',
-        address:'tollygunge,kol-700045',
+        phone:'8976134458',
+        address:'Tollygunge',
     } ,
 
 ]
 
-server.get('/students', (req, res) => {
+server.get('/users', (req, res) => {
     const search = req.query.search;
     let result = null;
     if (search) {
-        result = students.filter((st) => { return st.name.toLowerCase().startswith(search.tolowercase()) })
+        result = users.filter((st) => { return st.name.toLowerCase().startswith(search.tolowercase()) })
 
     }
     else {
-        result = students;
+        result = users;
     }
 
     res.send(result);
 })
 
-server.get('/students/:id', (req, res) => {
-    const studentID = req.params.id;
-    let student = students.find((st) => { return st.id == studentID });
-    if(!student)
+server.get('/users/:id', (req, res) => {
+    const userID = req.params.id;
+    let user = users.find((st) => { return st.id == userID });
+    if(!user)
     {
-        res.status(404).send({message:'student not found'})
+        res.status(404).send({message:'user not found'})
     }
-    res.send(student);
+    res.send(user);
 })
 
-server.post('/students', (res, req) => {
-    const student = req.body;
-    students.push(student);
-    res.send({ message: 'new student information saved!' })
+server.post('/users', (res, req) => {
+    const user = req.body;
+    users.push(user);
+    res.send({ message: 'new user information saved!' })
 })
 server.get('/about', (req, res) => {
     res.sendFile('C:/september/20210607-D2C-BLG-02_DESKTOP.jpg');
